@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-""" Script that computes the minimum operations
-    needed in a CopyAll - Paste task
+""" 
+Script that computes the minimum operations
+needed in a CopyAll - Paste task
 """
 
 
