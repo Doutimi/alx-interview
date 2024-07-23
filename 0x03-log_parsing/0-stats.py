@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Script to get stats from a request"""
+"""Script to get Stats from a request"""
 
 import sys
 
