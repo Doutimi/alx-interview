@@ -1,89 +1,56 @@
 #!/usr/bin/python3
-import sys
 
-if len(sys.argv) != 2:
-    print("Usage: nqueens N")
-    sys.exit(1)
-if not sys.argv[1].isdigit():
-    print("N must be a number")
-    sys.exit(1)
-else:
-    N = int(sys.argv[1])
+'''
+N queens
+'''
 
-if N < 4:
-    print("N must be at least 4")
-    sys.exit(1)
+from sys import argv
 
 
-def printBoard(board):
-    """Print formated board
-    Args:
-        board (list): list of list of 0 or 1
-    """
-    board_vect = []
-    for i in range(N):
-        for j in range(N):
-            if board[i][j] == 1:
-                board_vect.append([i, j])
-                break
-    print(board_vect)
-
-
-def valid_pos(board, row=0, col=0):
-    """Check valid positions in col
-    Args:
-        row (int): row number of matrix
-        col (int): colum number of matrix
-    """
-    for i in range(col):
-        if board[row][i] == 1:
+def is_NQueen(cell: list) -> bool:
+    '''
+    True if N Queen, False if not
+    '''
+    row_number = len(cell) - 1
+    difference = 0
+    for index in range(0, row_number):
+        difference = cell[index] - cell[row_number]
+        if difference < 0:
+            difference *= -1
+        if difference == 0 or difference == row_number - index:
             return False
-    i = row
-    j = col
-    while i >= 0 and j >= 0:
-        if board[i][j] == 1:
-            return False
-        i -= 1
-        j -= 1
-    i = row
-    j = col
-    while j >= 0 and i < N:
-        if board[i][j] == 1:
-            return False
-        i += 1
-        j -= 1
     return True
 
 
-def Solver(board, col=0):
-    """Vefify the options
-    Args:
-        col (int): colum number of matrix
+def solve_NQeens(dimension: int, row: int, cell: list, outcome: list):
     """
-    if col >= N:
-        printBoard(board)
-        return True
-    res = False
-    for i in range(N):
-        if valid_pos(board, i, col):
-            board[i][col] = 1
-            res = Solver(board, col + 1) or res
-
-            board[i][col] = 0
-    return res
-
-
-def n_queen():
-    """Solves the N queens problem.
-    Return: None
+    Return result of N Queens recusrivley
     """
-    board = []
-    for row in range(N):
-        board.append([0] * N)
-    if not Solver(board, 0):
-        print("Not Solution Found")
-        return
-    return
+    # Base case
+    if row == dimension:
+        print(outcome)
+    else:
+        for col in range(0, dimension):
+            cell.append(col)
+            outcome.append([row, col])
+            if (is_NQueen(cell)):
+                solve_NQeens(dimension, row + 1, cell, outcome)
+            cell.pop()
+            outcome.pop()
 
 
-n_queen()
+if len(argv) != 2:
+    print('Usage: nqueens N')
+    exit(1)
+try:
+    N = int(argv[1])
+except BaseException:
+    print('N must be a number')
+    exit(1)
+if N < 4:
+    print('N must be at least 4')
+    exit(1)
+else:
+    outcome = []
+    cell = 0
+    solve_NQeens(int(N), cell, [], outcome)
