@@ -54,4 +54,3 @@ else:
     outcome = []
     cell = 0
     solve_NQeens(int(N), cell, [], outcome)
-
