@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 '''
-N queens
+N Queens
 '''
 
 from sys import argv
